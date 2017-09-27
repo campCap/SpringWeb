@@ -252,45 +252,85 @@ alert(add(1,2,3,4,5));
 				      };
 		      }; */ 
 		      
-		      
-		      window.onload = function (){
-		    	
+		   <!-- ---------------------노드 바꾸기 예제 ---------------------------------->	        
+		      addEventListener("load", function (){
 		    	    	  
 		    	  var swapNodeButton = document.querySelector("#swap-node-button");
 		    	  var container = document.querySelector("#node-swap-container");
+		    	  
 		    	  swapNodeButton.onclick = function (){
 		    		  var nodes = container.getElementsByTagName("img");
 		    		  var node1 = nodes[0];
-		    		  var node3 = nodes[2];
 		    		  var node2 = nodes[1];
+		    		  var node3 = nodes[2];
 		    		  var oldNode = container.replaceChild(node1, node3);
 		    		  container.insertBefore(node3 ,node2);
 		    		  
+ 		    	  };
+		      });
+		      
+		      
+		  <!-- ---------------------노드 바꾸기 예제222 ---------------------------------->	      
+		      addEventListener("load", function (){
+    	    	  
+		    	  var moveUpButton = document.querySelector("#move-up-button");
+		    	  var container = document.querySelector("#move-up-container");
+		    	  var tbody = container.querySelector("tbody"); 
+		    	  
+		    	  tbody.onclick = function(e){
+		    		  alert(e.target.nodeName + ","+ e.currentTarget.nodeName);
+		    		  e.target.parentNode.style.background = "pink";
+		    	  };
+		    	  
+	    		  /* for(var i = 0; i < trs.length; i++) 이렇게 할필요 없음  부모 노드 선택하면 됨!!
+	    			  trs[i].onclick = function(e){
+	    			  e.target.style.background = "pink";
+	    		  }; */
 		    		  
-		    		  
-		    		  
-		    		  
- 		    	  }
-		      }
+	    		  moveUpButton.onclick = function(){
+		    			  
+	    		  };	
+		      });
 			
 </script>
 </head>
 <body>
+<!-- ---------------------노드 바꾸기 예제222 ---------------------------------->
+<input id="move-up-button" type="button" value="위로 옮기기">
+<div id="move-up-container">
+	<table border="1">
+		<thead>
+			<tr>
+				<td>코드</td>
+				<td>제목</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>하자고 하길 잘했어</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>하나도 안졸려</td>
+			</tr>
+		</tbody>
+	</table>
+	<img src="../images/1.jpg" />
+	<img src="../images/2.jpg" />
+	<img src="../images/3.jpg" />
+</div>
 
+<hr/>
 <!-- ---------------------노드 바꾸기 예제 ---------------------------------->
 <input id="swap-node-button" type="button" value="노드 바꾸기">
 <div id="node-swap-container">
-<img src="../images/1.jpg" />
-<img src="../images/2.jpg" />
-<img src="../images/3.jpg" />
-
-
-
+	<img src="../images/1.jpg" />
+	<img src="../images/2.jpg" />
+	<img src="../images/3.jpg" />
 </div>
 
-
 <hr/>
-
 <!-- ---------------------텍슽츠 노드 추가 예제 ---------------------------------->
 <input id="add-text-node-button" type="button" value="텍스트노드 추가">
 <input id="add-img-node-button" type="button" value="이미지노드 추가">
