@@ -30,17 +30,19 @@ public class CustomerController {
 		//output += String.format("title : %s\n", list.get(0).getTitle());
 		
 		//return "customer/notice";
-		return "customer.notice";
+		return "customer.notice.list";
 	}
 	
 
 	@RequestMapping("notice/{id}")	
 	public String noticeDetail(
 				@PathVariable("id") String aaid,
-				Model model) 
-	{
-		model.addAttribute("n", noticeDao.get(aaid));
+				Model model) 	{
 		
-		return "customer.notice-detail";
+		model.addAttribute("n", noticeDao.get(aaid));
+		model.addAttribute("n", noticeDao.getPrev(aaid));
+		model.addAttribute("n", noticeDao.getNext(aaid));
+		
+		return "customer.notice.detail";
 	}
 }

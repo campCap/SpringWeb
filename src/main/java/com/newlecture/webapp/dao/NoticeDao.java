@@ -14,4 +14,6 @@ public interface NoticeDao {
 	@Select("select * from NoticeView where id=#{id}") //<- mybatis 사용해서 해도됨
 	NoticeView get(String id);
 	int update(String id, String title, String content);
+	NoticeView getPrev(String aaid);
+	NoticeView getNext(String aaid);
 }

@@ -43,4 +43,16 @@ public class MyBatisNoticeDao implements NoticeDao {
 		return 0;
 	}
 
+	@Override
+	public NoticeView getPrev(String aaid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NoticeView getNext(String aaid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -276,10 +276,17 @@ alert(add(1,2,3,4,5));
 		    	  var moveUpButton = document.querySelector("#move-up-button");
 		    	  var container = document.querySelector("#move-up-container");
 		    	  var tbody = container.querySelector("tbody"); 
+		    	  var td = tbody.firstElementChild.lastElementChild;
+		    	  
+		    	  td.addEventListener("click", function(e){
+		    		  //e.stopPropagation();
+		    		  alert("td"); /*말단부터 올라가기 떄문에*/
+		    		  e.target.style.background = "green"; 
+		    	  });
 		    	  
 		    	  tbody.onclick = function(e){
 		    		  alert(e.target.nodeName + ","+ e.currentTarget.nodeName);
-		    		  e.target.parentNode.style.background = "pink";
+		    		  e.target.style.background = "pink";
 		    	  };
 		    	  
 	    		  /* for(var i = 0; i < trs.length; i++) 이렇게 할필요 없음  부모 노드 선택하면 됨!!
