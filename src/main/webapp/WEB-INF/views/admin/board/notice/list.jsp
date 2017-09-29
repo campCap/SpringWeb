@@ -63,7 +63,11 @@
 				<h3 class="hidden">현재 페이지</h3>
 				<div><span class="text-orange text-strong">1</span> / 3 pages</div>
 			</div>
-
+			
+			<div>
+				<a href="notice/reg	">등록하기</a>
+			</div>
+			
 			<div class="margin-top align-center pager">
 				<new:pager />
 			</div>

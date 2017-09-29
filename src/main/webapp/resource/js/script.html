@@ -276,16 +276,19 @@ alert(add(1,2,3,4,5));
 		    	  var moveUpButton = document.querySelector("#move-up-button");
 		    	  var container = document.querySelector("#move-up-container");
 		    	  var tbody = container.querySelector("tbody"); 
+		    	  var checkedId = 0;
 		    	  var td = tbody.firstElementChild.lastElementChild;
 		    	  
 		    	  td.addEventListener("click", function(e){
 		    		  //e.stopPropagation();
-		    		  alert("td"); /*말단부터 올라가기 떄문에*/
+		    		  //alert("td"); /*말단부터 올라가기 떄문에*/
 		    		  e.target.style.background = "green"; 
-		    	  });
+		    	  },true);
 		    	  
 		    	  tbody.onclick = function(e){
-		    		  alert(e.target.nodeName + ","+ e.currentTarget.nodeName);
+		    		  if(e.target == ?)
+		    			  checkedId = ?.value;
+		    		 // alert(e.target.nodeName + ","+ e.currentTarget.nodeName);
 		    		  e.target.style.background = "pink";
 		    	  };
 		    	  
@@ -295,31 +298,74 @@ alert(add(1,2,3,4,5));
 	    		  }; */
 		    		  
 	    		  moveUpButton.onclick = function(){
-		    			  
+	    			  
 	    		  };	
 		      });
 			
+window.addEventListener("load", function() {
+	var titleText = document.querySelector("form input[name]");
+	var submitButton = document.querySelector("form input[type='submit']");
+	var cancelButton = document.querySelector("form a");
+	
+	submitButton.onclick = function(e){
+		if(titleText.value == ""){
+			alert("제목을 입력하세요");
+			e.preventDefault(); //실행이 안되게 해줌
+		};
+	};
+	
+	cancelButton.onclick = function(e){
+		if(titleText.value != "")
+			if(!confirm("작성중이던 입력을 취소하시겠습니까?")); //확인 취소 false 라면 (리턴값이 불린임)
+				e.preventDefault(); // 실행을 취소시켜줌 여기서 유지시켜줌.
+	};
+});
 </script>
 </head>
 <body>
-<!-- ---------------------노드 바꾸기 예제222 ---------------------------------->
+<!-- --------------------------------------기본행위 막기 예제 --------------------------------------------->
+<form action="">
+	<input type="text" name="title"/><br/>
+	<input type="submit" value="전송"/>
+	<a href="">취소</a>
+</form>
+<hr/>
+<!-- ---------------------노드 바꾸기 예제222 + 이벤트 심화 : 버블링과 캠처링---------------------------------->
 <input id="move-up-button" type="button" value="위로 옮기기">
 <div id="move-up-container">
 	<table border="1">
 		<thead>
 			<tr>
 				<td>코드</td>
+				<td>코드</td>
 				<td>제목</td>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
+				<td><input name="id" type="radio" value="1"/></td>
 				<td>1</td>
 				<td>하자고 하길 잘했어</td>
 			</tr>
 			<tr>
+				<td><input name="id" type="radio" value="2"/></td>
 				<td>2</td>
 				<td>하나도 안졸려</td>
+			</tr>
+			<tr>
+				<td><input name="id" type="radio" value="3"/></td>
+				<td>3</td>
+				<td>하나도dfdf 안졸려</td>
+			</tr>
+			<tr>
+				<td><input name="id" type="radio" value="4"/></td>
+				<td>4</td>
+				<td>하123123나도 안졸려</td>
+			</tr>
+			<tr>
+				<td><input name="id" type="radio" value="5"/></td>
+				<td>5</td>
+				<td>하나,.,.,도 안졸려</td>
 			</tr>
 		</tbody>
 	</table>

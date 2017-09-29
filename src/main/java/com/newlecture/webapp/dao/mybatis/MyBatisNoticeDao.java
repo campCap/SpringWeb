@@ -44,15 +44,19 @@ public class MyBatisNoticeDao implements NoticeDao {
 	}
 
 	@Override
-	public NoticeView getPrev(String aaid) {
-		// TODO Auto-generated method stub
-		return null;
+	public NoticeView getPrev(String id) {
+		NoticeDao noticeDao = sqlSession.getMapper(NoticeDao.class);		
+		NoticeView noticeView = noticeDao.getPrev(id);
+		
+		return noticeView;
 	}
 
 	@Override
-	public NoticeView getNext(String aaid) {
-		// TODO Auto-generated method stub
-		return null;
+	public NoticeView getNext(String id) {
+		NoticeDao noticeDao = sqlSession.getMapper(NoticeDao.class);		
+		NoticeView noticeView = noticeDao.getNext(id);
+		
+		return noticeView;
 	}
 
 }
