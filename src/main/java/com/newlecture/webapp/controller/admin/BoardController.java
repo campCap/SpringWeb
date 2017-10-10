@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.newlecture.webapp.dao.NoticeDao;
+import com.newlecture.webapp.entity.Notice;
 
 @Controller
 @RequestMapping("admin/board/*")
@@ -54,7 +55,10 @@ public class BoardController {
 	public String noticeReg(String title, String content) throws UnsupportedEncodingException 	{
 		
 		//title = new String(title.getBytes("ISO-8859-1"), "UTF-8"); //바이트 수를 잘못읽어왔기 때문.. ????로 나오면 바이트수 오류 뷁잛뚫 이런식으로 나오면 인코딩오류
-		System.out.println(title);
+		String writerId = "robin";
+		
+		//noticeDao.insert(title, content, writerId);
+		noticeDao.insert(new Notice(title, content, writerId));
 		
 		return "redirect:../notice";
 	}

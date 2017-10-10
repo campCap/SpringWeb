@@ -52,7 +52,7 @@
 						<td>
 							<fmt:formatDate pattern="yyyy-MM-dd" value="2017-02-28"/>		
 						</td>
-						<td>12</td>
+						<td>${n.hit}</td>
 					</tr>
 					</c:forEach>
 					</tbody>

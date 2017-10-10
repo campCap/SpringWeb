@@ -1,6 +1,5 @@
 package com.newlecture.webapp.dao;
 
-import java.util.Date;
 
 import com.newlecture.webapp.entity.Member;
 

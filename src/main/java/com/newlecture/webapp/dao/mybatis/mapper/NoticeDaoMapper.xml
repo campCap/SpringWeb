@@ -12,7 +12,7 @@
 		select * from NoticeView
 		where ${param2} like '%${param3}%'
 		order by regDate desc
-		limit ${(page-1)*10}, 10
+		limit ${(param1-1)*10}, 10
 	</select>
 	
 	<select id="getPrev" resultType="com.newlecture.webapp.entity.NoticeView">
@@ -28,5 +28,14 @@
 		order by regDate asc
 		limit 1
 	</select>
+	
+	<insert id="insert" parameterType="com.newlecture.webapp.entity.Notice">
+		<selectKey order="BEFORE" keyProperty="id" resultType="String">
+			select ifnull(max(cast(id as unsigned)), 0) + 1
+			from Notice			
+		</selectKey>
+		insert into Notice(id, title, content, writerId)
+		values(#{id}, #{title}, #{content}, #{writerId});
+	</insert>
 	
 </mapper>
