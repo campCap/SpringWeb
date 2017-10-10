@@ -278,6 +278,7 @@ alert(add(1,2,3,4,5));
 		    	  var tbody = container.querySelector("tbody"); 
 		    	  var checkedId = 0;
 		    	  var td = tbody.firstElementChild.lastElementChild;
+		    	  var tr = null;
 		    	  
 		    	  td.addEventListener("click", function(e){
 		    		  //e.stopPropagation();
@@ -286,10 +287,12 @@ alert(add(1,2,3,4,5));
 		    	  },true);
 		    	  
 		    	  tbody.onclick = function(e){
-		    		  if(e.target == ?)
-		    			  checkedId = ?.value;
-		    		 // alert(e.target.nodeName + ","+ e.currentTarget.nodeName);
-		    		  e.target.style.background = "pink";
+		    		  if(e.target.nodeName == "INPUT"){
+		    			 tr = e.target.parentNode.parentNode;
+		    		
+		    		  };
+		    			  //checkedId = ?.value;
+		    		// alert(e.target.nodeName + ","+ e.currentTarget.nodeName);
 		    	  };
 		    	  
 	    		  /* for(var i = 0; i < trs.length; i++) 이렇게 할필요 없음  부모 노드 선택하면 됨!!
@@ -298,10 +301,24 @@ alert(add(1,2,3,4,5));
 	    		  }; */
 		    		  
 	    		  moveUpButton.onclick = function(){
-	    			  
+					if(tr == null)
+						return;
+					
+    				 var container = tr.parentNode;
+	    			 var bf = tr.previousElementSibling;
+	    			 var af = tr.nextElementSibling;
+	    			
+	    			 if(bf == null){
+	    				alert("더 이상 올릴 수가 없습니다."); 
+	    			 }
+	    			 
+	    			 else {
+	    			 	container.replaceChild(tr, bf);
+	    			 	container.insertBefore(bf ,af);
+	    			 };
 	    		  };	
 		      });
-			
+/* ---------------------------엘리먼트기본행위 막기--------------------------------------- */			
 window.addEventListener("load", function() {
 	var titleText = document.querySelector("form input[name]");
 	var submitButton = document.querySelector("form input[type='submit']");
@@ -391,9 +408,7 @@ window.addEventListener("load", function() {
 <div id="node-container">
 </div>
 
-
 <hr/>
-
 
 <!-- ---------------------자식 노드 변경 예제 ---------------------------------->
 <input id="ch-node-button" type="button" value="자식노드 변경">
@@ -401,12 +416,7 @@ window.addEventListener("load", function() {
 hello
 </div>
 
-
 <hr/>
-
-
-
-
 
 
 <!-- ----------------------속성변경 예제 ---------------------------------->
@@ -418,9 +428,7 @@ hello
 
 </div>
 
-
 <hr/>
-
 
 <!-- ----------------------selector api 예제 ---------------------------------->
 <input id="ch-button1" type="button" value="배경색 변경">
@@ -445,7 +453,6 @@ hello
 <div>3</div>
 
 </div>
-
 
 <hr/>
 <!-- ----------------------iframe window ---------------------------------->
