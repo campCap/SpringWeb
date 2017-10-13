@@ -354,6 +354,7 @@ addEventListener("load", function() {
 /* ---------------------------Temlplate 태그를 이용한 노드복제 예제 --------------------------------------- */			
 addEventListener("load", function() {
 	var cloneButton = document.querySelector("#ex2-clone input[value='단순복제']");
+	var ajaxButton = document.querySelector("#ex2-clone input[value='Ajax요청']");
 	var tbody = document.querySelector("#ex2-clone tbody");
 	var template = document.querySelector("#ex2-clone template");
 	
@@ -362,6 +363,10 @@ addEventListener("load", function() {
 		{id:"2", title:"자바스크립트2", writerId:"newl2ec"},
 		{id:"3", title:"자바스크립트3", writerId:"newl3ec"}
 	];
+	
+	ajaxButton.onclick = function(e){
+		var xhr = new XmlHttpRequest();
+	};
 	
 	cloneButton.onclick = function(e){
 		//template을 지원하는지
@@ -393,6 +398,7 @@ addEventListener("load", function() {
 	<div id="ex2-clone">
 		<div>
 			<input type="button" value="단순복제"/>
+			<input type="button" value="Ajax요청"/>
 		</div>
 		
 		<div id="clone-container">
