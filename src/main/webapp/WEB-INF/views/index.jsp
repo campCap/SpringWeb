@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	index page
+	index page12
 </body>
 </html>

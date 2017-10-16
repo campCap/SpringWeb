@@ -365,7 +365,21 @@ addEventListener("load", function() {
 	];
 	
 	ajaxButton.onclick = function(e){
-		var xhr = new XmlHttpRequest();
+		/* 동기형으로 일하는 방식 */
+		/* var xhr = new XMLHttpRequest();
+		xhr.open("GET", "../../customer/notice-ajax", false); //요청하기 위한 설정
+		xhr.send(); // 요청을 하는것
+		data = eval(xhr.responseText); */
+		
+		/* 비동기형 */
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function(e){
+			if(xhr.readyState == 4)	
+				data = eval(xhr.responseText);
+		};
+		
+		xhr.open("GET", "../../customer/notice-ajax", true); //요청하기 위한 설정
+		xhr.send(); // 요청을 하는것
 	};
 	
 	cloneButton.onclick = function(e){
@@ -405,9 +419,9 @@ addEventListener("load", function() {
 			<table border="1">
 				<thead>
 					<tr>
-						<td>코드</td>
-						<td>코드</td>
+						<td></td>
 						<td>제목</td>
+						<td>작성자</td>
 					</tr>
 				</thead>
 				<tbody>
