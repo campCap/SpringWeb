@@ -101,7 +101,7 @@ public class BoardController {
 	      }
 	      //1012 파일 경로에 파일명도 추가
 	      
-	      path +=File.separator+file.getOriginalFilename();//앞 path는 \이지만 여기path는 /.. 각 운영체제마다규칙이 다름. 이것을 통용하게 해주는 것
+	      path += File.separator+file.getOriginalFilename();//앞 path는 \이지만 여기path는 /.. 각 운영체제마다규칙이 다름. 이것을 통용하게 해주는 것
 	      File f2 = new File(path); //빈파일 만들어진 것
 	      System.out.println("path2 : "+path);
 	      InputStream fis = file.getInputStream();   //읽기

@@ -45,8 +45,8 @@ public class CustomerController {
 				Model model) 	{
 		
 		model.addAttribute("n", noticeDao.get(aaid));
-		model.addAttribute("prev", noticeDao.getPrev(aaid));
-		model.addAttribute("next", noticeDao.getNext(aaid));
+		//model.addAttribute("prev", noticeDao.getPrev(aaid));
+		//model.addAttribute("next", noticeDao.getNext(aaid));
 		
 		return "customer.notice.detail";
 	}

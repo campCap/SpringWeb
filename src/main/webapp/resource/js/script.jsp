@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -423,15 +424,41 @@ addEventListener("load", function() {
 	
 });
 	
+/* ---------------------------Ajax로 파일 전송하기와 트리거 --------------------------------------- */		
+
+addEventListener("load", function() {
+	var fileInput = document.querySelector("#ex4-upload input");
+	var submitBtn = document.querySelector("#ex4-upload span");
+	
+	submitBtn.onclick = function(e){
+		var event = new MouseEvent("click", {
+			'view':window,
+			'bubles':true,
+			'cancelable':true
+		});
+		
+		fileInput.dispatchEvent(event);
+	};
+	
+});
+	
 </script>
 </head>
 <body>
 
+	<!-- ------------------------------------Ajax로 파일 전송하기와 트리거 --------------------------------------------->
+	<div id="ex4-upload">
+	
+		<input type="file" style="display: none;"/>
+		<span style="border: 1px solid #999; border-radius: 5px; cursor: pointer; background: pink; padding: 3px;">파일선택</span>
+
+	</div>
+	<hr />
+
 	<!-- ------------------------------------Ajax로 파일 전송하기 --------------------------------------------->
 	<div id="ex3-upload">
-		<form action="../../upload" method="post" enctype="multipart/form-data">
+		<form action="../../upload?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data">
 			<div class="btn">
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				<input type="submit" value="전송"/>
 				<input type="button" value=""/>
 			</div>
