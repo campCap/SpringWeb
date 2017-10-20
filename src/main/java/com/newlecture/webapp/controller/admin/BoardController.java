@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -22,8 +23,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.newlecture.webapp.dao.MemberDao;
 import com.newlecture.webapp.dao.NoticeDao;
 import com.newlecture.webapp.dao.NoticeFileDao;
+import com.newlecture.webapp.entity.Member;
 import com.newlecture.webapp.entity.Notice;
 import com.newlecture.webapp.entity.NoticeFile;
 
@@ -36,6 +39,9 @@ public class BoardController {
 	
 	@Autowired
 	private NoticeFileDao noticeFileDao;
+	
+	@Autowired
+	private MemberDao memberDao;
 	
 	@RequestMapping("notice")
 	public String notice(
@@ -69,11 +75,13 @@ public class BoardController {
 	
 	@RequestMapping(value="notice/reg", method=RequestMethod.POST)
 	   //public String noticeReg(String title, String content) throws UnsupportedEncodingException {
-	   public String noticeReg(Notice notice,String aa, MultipartFile file, HttpServletRequest request) throws IOException {
-	   
-	      //1011날짜 설정
-	      /*//날짜를 얻는 방법 1)
-	      Date curDate = new Date();
+	   public String noticeReg(Notice notice,String aa, MultipartFile file, HttpServletRequest request, Principal principal) throws IOException {
+		/*file.isEmpty() //파일이 엠티면 트루*/
+		
+		 //if(file.isEmpty())
+		  //1011날짜 설정
+	      //날짜를 얻는 방법 1)
+	      //Date curDate = new Date();
 	      //curDate.getYear(); //사라지고 있는 방법*/
 	      //날짜를 얻는 방법 2)분쇄?? 선택
 	      Calendar cal = Calendar.getInstance();
@@ -126,12 +134,13 @@ public class BoardController {
 	      String fileName = file.getOriginalFilename(); //파일 이름 확인
 	      System.out.println("filename : "+fileName);
 	      
-
+	      
 	      notice.setWriterId("robin");
 	      System.out.println("title : " + notice.getTitle());
 	      //int row = noticeDao.insert(title, content,writerId);
 	      int row = noticeDao.insert(notice);
-	      noticeFileDao.insert(new NoticeFile(null, fileName, nextId));
+	      //noticeFileDao.insert(new NoticeFile(null, fileName, nextId));
+	      memberDao.pointUp(principal.getName());
 	      
 	      return "redirect:../notice";
 	   }

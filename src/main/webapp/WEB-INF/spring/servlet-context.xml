@@ -9,7 +9,7 @@
 	<context:component-scan base-package="com.newlecture.webapp.controller" />
 
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSize" value="104857600"></property>
+		<property name="maxUploadSize" value="3048576000"></property>
 	</bean>
 	
 	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">   <!-- 타일즈 깨움 -->

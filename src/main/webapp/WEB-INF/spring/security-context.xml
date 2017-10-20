@@ -8,9 +8,9 @@
                   http://www.springframework.org/schema/security/spring-security.xsd">
 
 	<http>
-		<intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/>
-		<intercept-url pattern="/student/*" access="hasRole('ROLE_STUDENT')"/>
-		<intercept-url pattern="/teacher/*" access="hasRole('ROLE_TEACHER')"/>
+		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/student/**" access="hasRole('ROLE_STUDENT')"/>
+		<intercept-url pattern="/teacher/**" access="hasRole('ROLE_TEACHER')"/>
 		<!-- <intercept-url pattern="/customer/*" access="hasRole('ROLE_USER')"/> -->
 		
 		<form-login

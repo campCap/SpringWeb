@@ -437,7 +437,37 @@ addEventListener("load", function() {
 			'cancelable':true
 		});
 		
+		console.log("bf");
+		
 		fileInput.dispatchEvent(event);
+		fileInput.onchange = function(){
+			var file = fileInput.files[0];
+			
+			var formData = new FormData();
+			formData.append("title", "테스트");
+			formData.append("file", file);
+			
+			var xhr = new XMLHttpRequest();
+			xhr.onprogress = function(){
+				console.log(e.loaded);	
+			};
+			
+			xhr.onload = function(e){
+				
+			};
+			
+			xhr.onerror = function(e){
+				alert("예기치 못한 오류가 발생했습니다.");
+			};
+			
+			xhr.open("POST","../../upload?${_csrf.parameterName}=${_csrf.token}", false);
+			xhr.send(formData);
+			
+			/* for(var key in fileInput.files[0])
+				alert(key); */	
+		};
+		
+		console.log("af");
 	};
 	
 });

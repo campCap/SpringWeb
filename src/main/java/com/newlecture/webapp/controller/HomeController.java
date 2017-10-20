@@ -45,7 +45,9 @@ public class HomeController {
 
 		path += File.separator + file.getOriginalFilename();
 		File f2 = new File(path); 
+		
 		System.out.println("path2 : " + path);
+		
 		InputStream fis = file.getInputStream(); 
 		OutputStream fos = new FileOutputStream(f2); 
 
