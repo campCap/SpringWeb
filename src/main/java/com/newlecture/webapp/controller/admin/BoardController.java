@@ -135,12 +135,12 @@ public class BoardController {
 	      System.out.println("filename : "+fileName);
 	      
 	      
-	      notice.setWriterId("robin");
+	      notice.setWriterId("newlec");
 	      System.out.println("title : " + notice.getTitle());
 	      //int row = noticeDao.insert(title, content,writerId);
 	      int row = noticeDao.insert(notice);
 	      //noticeFileDao.insert(new NoticeFile(null, fileName, nextId));
-	      memberDao.pointUp(principal.getName());
+	     // memberDao.pointUp(principal.getName());
 	      
 	      return "redirect:../notice";
 	   }

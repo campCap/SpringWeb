@@ -18,8 +18,7 @@
 			default-target-url="/index"
 		/>
 		
-		<logout
-			logout-success-url="/index"/>
+		<logout	logout-success-url="/index"/>
 	</http>
 	
 	<authentication-manager>
@@ -27,10 +26,6 @@
 		<jdbc-user-service data-source-ref="dataSource" 
 							users-by-username-query="select `id`, pwd `password`, 1 enabled from Member where id=?"
 							authorities-by-username-query="select id, 'ROLE_USER' authority from Member where id=?"/>
-			<!-- <user-service>
-				<user name="newlec" password="111" authorities="ROLE_ADMIN,ROLE_USER"/>
-				<user name="dragon" password="111" authorities="ROLE_USER"/>
-			</user-service> -->
 		</authentication-provider>
 	</authentication-manager>
 

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import com.newlecture.webapp.dao.NoticeDao;
 import com.newlecture.webapp.entity.Notice;
@@ -15,6 +16,10 @@ public class SpringNoticeDao implements NoticeDao {
 	@Autowired
 	private JdbcTemplate template;
 	
+	@Autowired
+	private TransactionTemplate transactionTemplate;
+	/*@Autowired
+	private PlatformTransactionManager transactionManager;*/
 
 	@Override
 	public List<NoticeView> getList(int page, String field, String query) {
@@ -86,18 +91,82 @@ public class SpringNoticeDao implements NoticeDao {
 		
 		return insert(new Notice(title, content, writerId));
 	}
-
+	
 	@Override
 	public int insert(Notice notice) {
 		String sql = "insert into Notice(id, title, content, writerId) values(?, ?, ?, ?);";
+		String sql1 = "update Member set point = point + 1 where id = ?";
+		
+		int result = 0;
+		result += template.update(sql,
+						getNextId(),
+						notice.getTitle(),
+						notice.getContent(),
+						notice.getWriterId());
+				
+		result += template.update(sql1, notice.getWriterId());
+				
+		return result;
+	}
+	
+	/*飘罚黎记 贸府规过 2
+	 * 飘罚黎记袍敲复阑 贸府窍绰规过
+	 * @Override
+	public int insert(Notice notice) {
+		String sql = "insert into Notice(id, title, content, writerId) values(?, ?, ?, ?);";
+		String sql1 = "update Member set point = point + 1 where id = ?";
+		
+		int result = 0;
+		
+		result = (int) transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+			
+			@Override
+			protected void doInTransactionWithoutResult(TransactionStatus arg0) {
+				
+				template.update(sql,
+						getNextId(),
+						notice.getTitle(),
+						notice.getContent(),
+						notice.getWriterId());
+				
+				template.update(sql1, notice.getWriterId());
+				
+			}
+		});
+
+		return result;
+	}*/
+	
+	
+	/*飘罚黎记 概聪历甫 流立荤侩窍绰 规过, 贸府规过 1
+	 * 
+	 * @Override
+	public int insert(Notice notice) {
+		String sql = "insert into Notice(id, title, content, writerId) values(?, ?, ?, ?);";
+		String sql1 = "update Member set point = point + 1 where id = ?";
+		
+		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+		TransactionStatus state = transactionManager.getTransaction(def);
+		
+		try {
 		int result = template.update(sql,
 									getNextId(),
 									notice.getTitle(),
 									notice.getContent(),
 									notice.getWriterId());
 		
+		result += template.update(sql1, notice.getWriterId());
+
+		transactionManager.commit(state);
+		
 		return result;
-	}
+		}
+		catch(Exception e)
+		{
+			transactionManager.rollback(state);
+			throw e;
+		}
+	}*/
 
 	@Override
 	public String getNextId() {

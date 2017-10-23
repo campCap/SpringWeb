@@ -429,6 +429,8 @@ addEventListener("load", function() {
 addEventListener("load", function() {
 	var fileInput = document.querySelector("#ex4-upload input");
 	var submitBtn = document.querySelector("#ex4-upload span");
+	var progressBar = document.querySelector("#progress-bar");
+	progressBar.style.width = "0px";
 	
 	submitBtn.onclick = function(e){
 		var event = new MouseEvent("click", {
@@ -448,8 +450,11 @@ addEventListener("load", function() {
 			formData.append("file", file);
 			
 			var xhr = new XMLHttpRequest();
-			xhr.onprogress = function(){
-				console.log(e.loaded);	
+			xhr.upload.onprogress = function(e){
+				//console.log(((e.loaded/e.total)*100).toFixed(0)+"%");
+				var percentage = Math.round(e.loaded*100/e.total);
+				progressBar.textContent = percentage + "%";
+				progressBar.style.width = percentage + "px";
 			};
 			
 			xhr.onload = function(e){
@@ -460,7 +465,7 @@ addEventListener("load", function() {
 				alert("예기치 못한 오류가 발생했습니다.");
 			};
 			
-			xhr.open("POST","../../upload?${_csrf.parameterName}=${_csrf.token}", false);
+			xhr.open("POST","../../upload?${_csrf.parameterName}=${_csrf.token}");
 			xhr.send(formData);
 			
 			/* for(var key in fileInput.files[0])
@@ -478,11 +483,17 @@ addEventListener("load", function() {
 
 	<!-- ------------------------------------Ajax로 파일 전송하기와 트리거 --------------------------------------------->
 	<div id="ex4-upload">
-	
 		<input type="file" style="display: none;"/>
 		<span style="border: 1px solid #999; border-radius: 5px; cursor: pointer; background: pink; padding: 3px;">파일선택</span>
-
+		<span id = "progress-bar" style="background: pink; display: inline-block;"></span>
 	</div>
+	
+	<div>
+		<ul>
+			<li></li>
+		</ul>
+	</div>
+	
 	<hr />
 
 	<!-- ------------------------------------Ajax로 파일 전송하기 --------------------------------------------->
