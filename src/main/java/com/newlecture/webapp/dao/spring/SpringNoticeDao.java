@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import com.newlecture.webapp.dao.NoticeDao;
@@ -16,8 +17,8 @@ public class SpringNoticeDao implements NoticeDao {
 	@Autowired
 	private JdbcTemplate template;
 	
-	@Autowired
-	private TransactionTemplate transactionTemplate;
+	/*@Autowired
+	private TransactionTemplate transactionTemplate;*/
 	/*@Autowired
 	private PlatformTransactionManager transactionManager;*/
 
@@ -93,6 +94,7 @@ public class SpringNoticeDao implements NoticeDao {
 	}
 	
 	@Override
+	@Transactional
 	public int insert(Notice notice) {
 		String sql = "insert into Notice(id, title, content, writerId) values(?, ?, ?, ?);";
 		String sql1 = "update Member set point = point + 1 where id = ?";

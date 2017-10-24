@@ -5,9 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.security.Principal;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -23,25 +21,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.newlecture.webapp.dao.MemberDao;
-import com.newlecture.webapp.dao.NoticeDao;
-import com.newlecture.webapp.dao.NoticeFileDao;
-import com.newlecture.webapp.entity.Member;
 import com.newlecture.webapp.entity.Notice;
-import com.newlecture.webapp.entity.NoticeFile;
+import com.newlecture.webapp.service.admin.BoardService;
 
 @Controller
 @RequestMapping("admin/board/*")
 public class BoardController {
 	
 	@Autowired
+	private BoardService service;
+	
+	/*@Autowired
 	private NoticeDao noticeDao;
 	
 	@Autowired
 	private NoticeFileDao noticeFileDao;
 	
 	@Autowired
-	private MemberDao memberDao;
+	private MemberDao memberDao;*/
 	
 	@RequestMapping("notice")
 	public String notice(
@@ -50,7 +47,8 @@ public class BoardController {
 			@RequestParam(value="q", defaultValue="") String query,
 			Model model) 
 	{
-		model.addAttribute("list", noticeDao.getList(page, field, query));
+		
+		model.addAttribute("list", service.getNoticeList());
 		
 		return "admin.board.notice.list";
 	}
@@ -60,9 +58,9 @@ public class BoardController {
 				@PathVariable("id") String aaid,
 				Model model) 	{
 		
-		model.addAttribute("n", noticeDao.get(aaid));
-		model.addAttribute("prev", noticeDao.getPrev(aaid));
-		model.addAttribute("next", noticeDao.getNext(aaid));
+		model.addAttribute("n", service.getNotice(aaid));
+		model.addAttribute("prev", service.getNoticePrev(aaid));
+		model.addAttribute("next", service.getNoticeNext(aaid));
 		
 		return "admin.board.notice.detail";
 	}
@@ -92,7 +90,7 @@ public class BoardController {
 	      SimpleDateFormat fmt = new SimpleDateFormat("yyyy");
 	      String year = fmt.format(curDate);*/
 	      
-	      String nextId = noticeDao.getNextId();
+	      String nextId = service.getNextId();
 	      
 	      //1011파일 경로 설정
 	      ServletContext ctx = request.getServletContext();
@@ -135,10 +133,10 @@ public class BoardController {
 	      System.out.println("filename : "+fileName);
 	      
 	      
-	      notice.setWriterId("newlec");
+	      notice.setWriterId("jelly");
 	      System.out.println("title : " + notice.getTitle());
 	      //int row = noticeDao.insert(title, content,writerId);
-	      int row = noticeDao.insert(notice);
+	      int row = service.insertAndPointUp(notice);
 	      //noticeFileDao.insert(new NoticeFile(null, fileName, nextId));
 	     // memberDao.pointUp(principal.getName());
 	      

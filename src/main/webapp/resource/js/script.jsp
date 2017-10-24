@@ -424,13 +424,29 @@ addEventListener("load", function() {
 	
 });
 	
-/* ---------------------------Ajax로 파일 전송하기와 트리거 --------------------------------------- */		
+/* ---------------------------Ajax로 파일 전송하기와 트리거 그리고 파일목록뷰어 --------------------------------------- */		
 
 addEventListener("load", function() {
 	var fileInput = document.querySelector("#ex4-upload input");
 	var submitBtn = document.querySelector("#ex4-upload span");
 	var progressBar = document.querySelector("#progress-bar");
 	progressBar.style.width = "0px";
+	
+	var fileViewer = document.querySelector("#ex4-upload ul");
+	
+	var xhr = new XMLHttpRequest();
+	xhr.onload = function(e){
+		var files = JSON.parse(e.target.responseText);
+		
+		for(var i=0; i<files.length; i++){
+			var li = document.createElement("li");
+			li.textContent = files[i];
+			fileViewer.appendChild(li);
+		}
+	};
+	xhr.open("GET", "../../file-list");
+	xhr.send();
+	
 	
 	submitBtn.onclick = function(e){
 		var event = new MouseEvent("click", {
@@ -486,13 +502,13 @@ addEventListener("load", function() {
 		<input type="file" style="display: none;"/>
 		<span style="border: 1px solid #999; border-radius: 5px; cursor: pointer; background: pink; padding: 3px;">파일선택</span>
 		<span id = "progress-bar" style="background: pink; display: inline-block;"></span>
+		<div>
+			<ul>
+				
+			</ul>
+		</div>
 	</div>
 	
-	<div>
-		<ul>
-			<li></li>
-		</ul>
-	</div>
 	
 	<hr />
 
