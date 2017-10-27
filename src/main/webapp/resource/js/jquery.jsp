@@ -69,7 +69,6 @@
 		      container.append(span);
 		      
 		      span.onclick(remove);
-		      
 		   });
 		   
 		   addImgNodeButton.click(function() {
